@@ -2,7 +2,7 @@ import hashlib
 import base64
 import hmac
 import requests
-import jwt
+
 from datetime import datetime, timedelta
 
 from kreta_datastructs import *
@@ -72,25 +72,25 @@ class session:
             return requests.get(f'{self.url}/sajat/Csatolmany/{uid}', headers=self.headers).text
     def getAnnouncedTests(self, Uids : str = None):
         try:
-            return [DOLGOZAT.fromDict(doga) for doga in 
+            return [DOLGOZAT9.fromDict(doga) for doga in 
                 requests.get(f'{self.url}/sajat/BejelentettSzamonkeresek', params={
                 'Uids': Uids
                 }, headers=self.headers).json()
             ]
         except:
             self.refresh()
-            return [DOLGOZAT.fromDict(doga) for doga in requests.get(f'{self.url}/sajat/BejelentettSzamonkeresek', params={
+            return [DOLGOZAT9.fromDict(doga) for doga in requests.get(f'{self.url}/sajat/BejelentettSzamonkeresek', params={
                 'Uids': Uids
             }, headers=self.headers).json()]
     def getAnnouncedTests(self, datumTol : str = None, datumIg : str = None):
         try:
-            return [DOLGOZAT.fromDict(doga) for doga in requests.get(f'{self.url}/sajat/BejelentettSzamonkeresek', params={
+            return [DOLGOZAT9.fromDict(doga) for doga in requests.get(f'{self.url}/sajat/BejelentettSzamonkeresek', params={
                 'datumTol': datumTol,
                 'datumIg': datumIg
             }, headers=self.headers).json()]
         except:
             self.refresh()
-            return [DOLGOZAT.fromDict(doga) for doga in requests.get(f'{self.url}/sajat/BejelentettSzamonkeresek', params={
+            return [DOLGOZAT9.fromDict(doga) for doga in requests.get(f'{self.url}/sajat/BejelentettSzamonkeresek', params={
                 'datumTol': datumTol,
                 'datumIg': datumIg
             }, headers=self.headers).json()]
@@ -415,3 +415,24 @@ class IdpApiV1:
             ).text
         except Exception as e:
             print(e)
+if __name__=="__main__":
+    user=session.login("72655234689","20090329","035219001")
+    with open("getTimeTableWeeks","w") as f:
+        print(user.getTimeTableWeeks(),file=f)
+    with open("getGroups","w") as f:
+        print(user.getGroups(),file=f)
+    with open("getHomeworks","w") as f:
+        print(user.getHomeworks(span(-60,1)),file=f)
+    with open("getGuardian4T","w") as f:
+        print(user.getGuardian4T(),file=f)
+    with open("getLessons","w") as f:
+        print(user.getLessons(span(-1,6)),file=f)
+    with open("getNotes","w") as f:
+        print(user.getNotes(span(-60,0)),file=f)
+    with open("getEvaluations","w") as f:
+        print(user.getEvaluations(),file=f)
+    with open("getStudent","w") as f:
+        print(user.getStudent(),file=f)
+    with open("getOmissions","w") as f:
+        print(user.getOmissions(span(-30,0)),file=f)
+    print("Done!")
