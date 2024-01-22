@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 @dataclass
-class OSZTALYCSOPORT:
+class OSZTALYCSOPORT1:
 	Uid: str
 
 	@classmethod
@@ -8,7 +8,7 @@ class OSZTALYCSOPORT:
 		return cls(d["Uid"],
 		)
 @dataclass
-class OSZTALYCSOPORT:
+class OSZTALYCSOPORT2:
 	Uid: str
 	Nev: str
 
@@ -18,7 +18,7 @@ class OSZTALYCSOPORT:
 		d["Nev"],
 		)
 @dataclass
-class RENDSZERMODULOK:
+class RENDSZERMODULOK2:
 	IsAktiv: bool
 	Tipus: str
 
@@ -28,7 +28,7 @@ class RENDSZERMODULOK:
 		d["Tipus"],
 		)
 @dataclass
-class MOD:
+class MOD3:
 	Uid: str
 	Leiras: str
 	Nev: str
@@ -40,7 +40,7 @@ class MOD:
 		d["Nev"],
 		)
 @dataclass
-class MODJA:
+class TIPUS3:
 	Uid: str
 	Leiras: str
 	Nev: str
@@ -52,7 +52,7 @@ class MODJA:
 		d["Nev"],
 		)
 @dataclass
-class TIPUS:
+class MODJA3:
 	Uid: str
 	Leiras: str
 	Nev: str
@@ -64,7 +64,7 @@ class TIPUS:
 		d["Nev"],
 		)
 @dataclass
-class ALLAPOT:
+class ALLAPOT3:
 	Uid: str
 	Leiras: str
 	Nev: str
@@ -76,7 +76,7 @@ class ALLAPOT:
 		d["Nev"],
 		)
 @dataclass
-class KATEGORIA:
+class KATEGORIA3:
 	Uid: str
 	Leiras: str
 	Nev: str
@@ -88,7 +88,7 @@ class KATEGORIA:
 		d["Nev"],
 		)
 @dataclass
-class ERTEKFAJTA:
+class ERTEKFAJTA3:
 	Uid: str
 	Leiras: str
 	Nev: str
@@ -100,7 +100,7 @@ class ERTEKFAJTA:
 		d["Nev"],
 		)
 @dataclass
-class TANULOJELENLET:
+class IGAZOLASTIPUSA3:
 	Uid: str
 	Leiras: str
 	Nev: str
@@ -112,7 +112,7 @@ class TANULOJELENLET:
 		d["Nev"],
 		)
 @dataclass
-class IGAZOLASTIPUSA:
+class TANULOJELENLET3:
 	Uid: str
 	Leiras: str
 	Nev: str
@@ -124,23 +124,7 @@ class IGAZOLASTIPUSA:
 		d["Nev"],
 		)
 @dataclass
-class TESTRESZABASBEALLITASOK:
-	IsDiakRogzithetHaziFeladatot: bool
-	IsTanorakTemajaMegtekinthetoEllenorzoben: bool
-	IsOsztalyAtlagMegjeleniteseEllenorzoben: bool
-	ErtekelesekMegjelenitesenekKesleltetesenekMerteke: int
-	KovetkezoTelepitesDatuma: str
-
-	@classmethod
-	def fromDict(cls,d):
-		return cls(d["IsDiakRogzithetHaziFeladatot"],
-		d["IsTanorakTemajaMegtekinthetoEllenorzoben"],
-		d["IsOsztalyAtlagMegjeleniteseEllenorzoben"],
-		d["ErtekelesekMegjelenitesenekKesleltetesenekMerteke"],
-		d["KovetkezoTelepitesDatuma"],
-		)
-@dataclass
-class ORA:
+class ORA3:
 	KezdoDatum: str
 	VegDatum: str
 	Oraszam: int
@@ -152,19 +136,19 @@ class ORA:
 		d["Oraszam"],
 		)
 @dataclass
-class TANTARGY:
+class TANTARGY3:
 	Uid: str
-	Kategoria: KATEGORIA
+	Kategoria: KATEGORIA3
 	Nev: str
 
 	@classmethod
 	def fromDict(cls,d):
 		return cls(d["Uid"],
-		KATEGORIA.fromDict(d["Kategoria"]),
+		KATEGORIA3.fromDict(d["Kategoria"]),
 		d["Nev"],
 		)
 @dataclass
-class GONDVISELOK:
+class GONDVISELOK5:
 	EmailCim: str
 	Nev: str
 	Telefonszam: str
@@ -180,7 +164,23 @@ class GONDVISELOK:
 		d["Uid"],
 		)
 @dataclass
-class BANKSZAMLA:
+class TESTRESZABASBEALLITASOK5:
+	IsDiakRogzithetHaziFeladatot: bool
+	IsTanorakTemajaMegtekinthetoEllenorzoben: bool
+	IsOsztalyAtlagMegjeleniteseEllenorzoben: bool
+	ErtekelesekMegjelenitesenekKesleltetesenekMerteke: int
+	KovetkezoTelepitesDatuma: str
+
+	@classmethod
+	def fromDict(cls,d):
+		return cls(d["IsDiakRogzithetHaziFeladatot"],
+		d["IsTanorakTemajaMegtekinthetoEllenorzoben"],
+		d["IsOsztalyAtlagMegjeleniteseEllenorzoben"],
+		d["ErtekelesekMegjelenitesenekKesleltetesenekMerteke"],
+		d["KovetkezoTelepitesDatuma"],
+		)
+@dataclass
+class BANKSZAMLA4:
 	BankszamlaSzam: None
 	BankszamlaTulajdonosTipusId: None
 	BankszamlaTulajdonosNeve: None
@@ -194,21 +194,21 @@ class BANKSZAMLA:
 		d["IsReadOnly"],
 		)
 @dataclass
-class INTEZMENY:
+class INTEZMENY4:
 	Uid: str
 	RovidNev: str
-	Rendszermodulok: list(RENDSZERMODULOK)
-	TestreszabasBeallitasok: TESTRESZABASBEALLITASOK
+	Rendszermodulok: list(RENDSZERMODULOK2)
+	TestreszabasBeallitasok: TESTRESZABASBEALLITASOK5
 
 	@classmethod
 	def fromDict(cls,d):
 		return cls(d["Uid"],
 		d["RovidNev"],
-		[RENDSZERMODULOK.fromDict(v) for v in d["Rendszermodulok"]],
-		TESTRESZABASBEALLITASOK.fromDict(d["TestreszabasBeallitasok"]),
+		[RENDSZERMODULOK2.fromDict(v) for v in d["Rendszermodulok"]],
+		TESTRESZABASBEALLITASOK5.fromDict(d["TestreszabasBeallitasok"]),
 		)
 @dataclass
-class ISKOLA:
+class ISKOLA9:
 	instituteId: int
 	instituteCode: str
 	name: str
@@ -232,65 +232,65 @@ class ISKOLA:
 		d["featureToggleSet"],
 		)
 @dataclass
-class DOLGOZAT:
+class DOLGOZAT9:
 	BejelentesDatuma: str
 	Datum: str
-	Modja: MODJA
+	Modja: MODJA3
 	OrarendiOraOraszama: int
 	RogzitoTanarNeve: str
 	TantargyNeve: str
 	Temaja: str
-	OsztalyCsoport: OSZTALYCSOPORT
+	OsztalyCsoport: OSZTALYCSOPORT1
 	Uid: str
 
 	@classmethod
 	def fromDict(cls,d):
 		return cls(d["BejelentesDatuma"],
 		d["Datum"],
-		MODJA.fromDict(d["Modja"]),
+		MODJA3.fromDict(d["Modja"]),
 		d["OrarendiOraOraszama"],
 		d["RogzitoTanarNeve"],
 		d["TantargyNeve"],
 		d["Temaja"],
-		OSZTALYCSOPORT.fromDict(d["OsztalyCsoport"]),
+		OSZTALYCSOPORT1.fromDict(d["OsztalyCsoport"]),
 		d["Uid"],
 		)
 
 @dataclass
-class IGAZOLAS:
+class IGAZOLAS12:
 	IgazolasAllapota: str
-	IgazolasTipusa: IGAZOLASTIPUSA
+	IgazolasTipusa: IGAZOLASTIPUSA3
 	KesesPercben: None
 	KeszitesDatuma: str
-	Mod: MOD
+	Mod: MOD3
 	Datum: str
-	Ora: ORA
+	Ora: ORA3
 	RogzitoTanarNeve: str
-	Tantargy: TANTARGY
-	Tipus: TIPUS
-	OsztalyCsoport: OSZTALYCSOPORT
+	Tantargy: TANTARGY3
+	Tipus: TIPUS3
+	OsztalyCsoport: OSZTALYCSOPORT1
 	Uid: str
 
 	@classmethod
 	def fromDict(cls,d):
 		return cls(d["IgazolasAllapota"],
-		IGAZOLASTIPUSA.fromDict(d["IgazolasTipusa"]),
+		IGAZOLASTIPUSA3.fromDict(d["IgazolasTipusa"]),
 		d["KesesPercben"],
 		d["KeszitesDatuma"],
-		MOD.fromDict(d["Mod"]),
+		MOD3.fromDict(d["Mod"]),
 		d["Datum"],
-		ORA.fromDict(d["Ora"]),
+		ORA3.fromDict(d["Ora"]),
 		d["RogzitoTanarNeve"],
-		TANTARGY.fromDict(d["Tantargy"]),
-		TIPUS.fromDict(d["Tipus"]),
-		OSZTALYCSOPORT.fromDict(d["OsztalyCsoport"]),
+		TANTARGY3.fromDict(d["Tantargy"]),
+		TIPUS3.fromDict(d["Tipus"]),
+		OSZTALYCSOPORT1.fromDict(d["OsztalyCsoport"]),
 		d["Uid"],
 		)
 @dataclass
-class DIAK:
+class DIAK16:
 	AnyjaNeve: str
 	Cimek: list(list)
-	Gondviselok: list(GONDVISELOK)
+	Gondviselok: list(GONDVISELOK5)
 	IntezmenyAzonosito: str
 	IntezmenyNev: str
 	Nev: str
@@ -302,14 +302,14 @@ class DIAK:
 	SzuletesiNev: str
 	TanevUid: str
 	Uid: str
-	Bankszamla: BANKSZAMLA
-	Intezmeny: INTEZMENY
+	Bankszamla: BANKSZAMLA4
+	Intezmeny: INTEZMENY4
 
 	@classmethod
 	def fromDict(cls,d):
 		return cls(d["AnyjaNeve"],
 		d["Cimek"],
-		[GONDVISELOK.fromDict(v) for v in d["Gondviselok"]],
+		[GONDVISELOK5.fromDict(v) for v in d["Gondviselok"]],
 		d["IntezmenyAzonosito"],
 		d["IntezmenyNev"],
 		d["Nev"],
@@ -321,50 +321,50 @@ class DIAK:
 		d["SzuletesiNev"],
 		d["TanevUid"],
 		d["Uid"],
-		BANKSZAMLA.fromDict(d["Bankszamla"]),
-		INTEZMENY.fromDict(d["Intezmeny"]),
+		BANKSZAMLA4.fromDict(d["Bankszamla"]),
+		INTEZMENY4.fromDict(d["Intezmeny"]),
 		)
 @dataclass
-class ERTEKELES:
+class ERTEKELES16:
 	ErtekeloTanarNeve: str
-	ErtekFajta: ERTEKFAJTA
+	ErtekFajta: ERTEKFAJTA3
 	Jelleg: str
 	KeszitesDatuma: str
 	LattamozasDatuma: None
-	Mod: MOD
+	Mod: MOD3
 	RogzitesDatuma: str
 	SulySzazalekErteke: int
 	SzamErtek: int
 	SzovegesErtek: str
 	SzovegesErtekelesRovidNev: None
-	Tantargy: TANTARGY
+	Tantargy: TANTARGY3
 	Tema: str
-	Tipus: TIPUS
-	OsztalyCsoport: OSZTALYCSOPORT
+	Tipus: TIPUS3
+	OsztalyCsoport: OSZTALYCSOPORT1
 	Uid: str
 
 	@classmethod
 	def fromDict(cls,d):
 		return cls(d["ErtekeloTanarNeve"],
-		ERTEKFAJTA.fromDict(d["ErtekFajta"]),
+		ERTEKFAJTA3.fromDict(d["ErtekFajta"]),
 		d["Jelleg"],
 		d["KeszitesDatuma"],
 		d["LattamozasDatuma"],
-		MOD.fromDict(d["Mod"]),
+		MOD3.fromDict(d["Mod"]),
 		d["RogzitesDatuma"],
 		d["SulySzazalekErteke"],
 		d["SzamErtek"],
 		d["SzovegesErtek"],
 		d["SzovegesErtekelesRovidNev"],
-		TANTARGY.fromDict(d["Tantargy"]),
+		TANTARGY3.fromDict(d["Tantargy"]),
 		d["Tema"],
-		TIPUS.fromDict(d["Tipus"]),
-		OSZTALYCSOPORT.fromDict(d["OsztalyCsoport"]),
+		TIPUS3.fromDict(d["Tipus"]),
+		OSZTALYCSOPORT1.fromDict(d["OsztalyCsoport"]),
 		d["Uid"],
 		)
 @dataclass
-class ORA:
-	Allapot: ALLAPOT
+class ORA21:
+	Allapot: ALLAPOT3
 	BejelentettSzamonkeresUids: list
 	BejelentettSzamonkeresUid: None
 	Datum: str
@@ -374,21 +374,21 @@ class ORA:
 	Nev: str
 	Oraszam: int
 	OraEvesSorszama: int
-	OsztalyCsoport: OSZTALYCSOPORT
+	OsztalyCsoport: OSZTALYCSOPORT2
 	HaziFeladatUid: None
 	IsHaziFeladatMegoldva: bool
 	TanarNeve: str
-	Tantargy: TANTARGY
-	TanuloJelenlet: TANULOJELENLET
+	Tantargy: TANTARGY3
+	TanuloJelenlet: TANULOJELENLET3
 	Tema: str
 	TeremNeve: str
-	Tipus: TIPUS
+	Tipus: TIPUS3
 	Uid: str
 	VegIdopont: str
 
 	@classmethod
 	def fromDict(cls,d):
-		return cls(ALLAPOT.fromDict(d["Allapot"]),
+		return cls(ALLAPOT3.fromDict(d["Allapot"]),
 		d["BejelentettSzamonkeresUids"],
 		d["BejelentettSzamonkeresUid"],
 		d["Datum"],
@@ -398,15 +398,15 @@ class ORA:
 		d["Nev"],
 		d["Oraszam"],
 		d["OraEvesSorszama"],
-		OSZTALYCSOPORT.fromDict(d["OsztalyCsoport"]),
+		OSZTALYCSOPORT2.fromDict(d["OsztalyCsoport"]),
 		d["HaziFeladatUid"],
 		d["IsHaziFeladatMegoldva"],
 		d["TanarNeve"],
-		TANTARGY.fromDict(d["Tantargy"]),
-		TANULOJELENLET.fromDict(d["TanuloJelenlet"]),
+		TANTARGY3.fromDict(d["Tantargy"]),
+		TANULOJELENLET3.fromDict(d["TanuloJelenlet"]),
 		d["Tema"],
 		d["TeremNeve"],
-		TIPUS.fromDict(d["Tipus"]),
+		TIPUS3.fromDict(d["Tipus"]),
 		d["Uid"],
 		d["VegIdopont"],
 		)
