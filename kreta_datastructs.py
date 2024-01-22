@@ -160,7 +160,7 @@ class TANTARGY:
 	@classmethod
 	def fromDict(cls,d):
 		return cls(d["Uid"],
-		KATEGORIA(d["Kategoria"]),
+		KATEGORIA.fromDict(d["Kategoria"]),
 		d["Nev"],
 		)
 @dataclass
@@ -204,8 +204,8 @@ class INTEZMENY:
 	def fromDict(cls,d):
 		return cls(d["Uid"],
 		d["RovidNev"],
-		[RENDSZERMODULOK(v) for v in d["Rendszermodulok"]],
-		TESTRESZABASBEALLITASOK(d["TestreszabasBeallitasok"]),
+		[RENDSZERMODULOK.fromDict(v) for v in d["Rendszermodulok"]],
+		TESTRESZABASBEALLITASOK.fromDict(d["TestreszabasBeallitasok"]),
 		)
 @dataclass
 class ISKOLA:
@@ -247,14 +247,15 @@ class DOLGOZAT:
 	def fromDict(cls,d):
 		return cls(d["BejelentesDatuma"],
 		d["Datum"],
-		MODJA(d["Modja"]),
+		MODJA.fromDict(d["Modja"]),
 		d["OrarendiOraOraszama"],
 		d["RogzitoTanarNeve"],
 		d["TantargyNeve"],
 		d["Temaja"],
-		OSZTALYCSOPORT(d["OsztalyCsoport"]),
+		OSZTALYCSOPORT.fromDict(d["OsztalyCsoport"]),
 		d["Uid"],
 		)
+
 @dataclass
 class IGAZOLAS:
 	IgazolasAllapota: str
@@ -273,16 +274,16 @@ class IGAZOLAS:
 	@classmethod
 	def fromDict(cls,d):
 		return cls(d["IgazolasAllapota"],
-		IGAZOLASTIPUSA(d["IgazolasTipusa"]),
+		IGAZOLASTIPUSA.fromDict(d["IgazolasTipusa"]),
 		d["KesesPercben"],
 		d["KeszitesDatuma"],
-		MOD(d["Mod"]),
+		MOD.fromDict(d["Mod"]),
 		d["Datum"],
-		ORA(d["Ora"]),
+		ORA.fromDict(d["Ora"]),
 		d["RogzitoTanarNeve"],
-		TANTARGY(d["Tantargy"]),
-		TIPUS(d["Tipus"]),
-		OSZTALYCSOPORT(d["OsztalyCsoport"]),
+		TANTARGY.fromDict(d["Tantargy"]),
+		TIPUS.fromDict(d["Tipus"]),
+		OSZTALYCSOPORT.fromDict(d["OsztalyCsoport"]),
 		d["Uid"],
 		)
 @dataclass
@@ -308,7 +309,7 @@ class DIAK:
 	def fromDict(cls,d):
 		return cls(d["AnyjaNeve"],
 		d["Cimek"],
-		[GONDVISELOK(v) for v in d["Gondviselok"]],
+		[GONDVISELOK.fromDict(v) for v in d["Gondviselok"]],
 		d["IntezmenyAzonosito"],
 		d["IntezmenyNev"],
 		d["Nev"],
@@ -320,8 +321,8 @@ class DIAK:
 		d["SzuletesiNev"],
 		d["TanevUid"],
 		d["Uid"],
-		BANKSZAMLA(d["Bankszamla"]),
-		INTEZMENY(d["Intezmeny"]),
+		BANKSZAMLA.fromDict(d["Bankszamla"]),
+		INTEZMENY.fromDict(d["Intezmeny"]),
 		)
 @dataclass
 class ERTEKELES:
@@ -345,20 +346,20 @@ class ERTEKELES:
 	@classmethod
 	def fromDict(cls,d):
 		return cls(d["ErtekeloTanarNeve"],
-		ERTEKFAJTA(d["ErtekFajta"]),
+		ERTEKFAJTA.fromDict(d["ErtekFajta"]),
 		d["Jelleg"],
 		d["KeszitesDatuma"],
 		d["LattamozasDatuma"],
-		MOD(d["Mod"]),
+		MOD.fromDict(d["Mod"]),
 		d["RogzitesDatuma"],
 		d["SulySzazalekErteke"],
 		d["SzamErtek"],
 		d["SzovegesErtek"],
 		d["SzovegesErtekelesRovidNev"],
-		TANTARGY(d["Tantargy"]),
+		TANTARGY.fromDict(d["Tantargy"]),
 		d["Tema"],
-		TIPUS(d["Tipus"]),
-		OSZTALYCSOPORT(d["OsztalyCsoport"]),
+		TIPUS.fromDict(d["Tipus"]),
+		OSZTALYCSOPORT.fromDict(d["OsztalyCsoport"]),
 		d["Uid"],
 		)
 @dataclass
@@ -387,7 +388,7 @@ class ORA:
 
 	@classmethod
 	def fromDict(cls,d):
-		return cls(ALLAPOT(d["Allapot"]),
+		return cls(ALLAPOT.fromDict(d["Allapot"]),
 		d["BejelentettSzamonkeresUids"],
 		d["BejelentettSzamonkeresUid"],
 		d["Datum"],
@@ -397,15 +398,15 @@ class ORA:
 		d["Nev"],
 		d["Oraszam"],
 		d["OraEvesSorszama"],
-		OSZTALYCSOPORT(d["OsztalyCsoport"]),
+		OSZTALYCSOPORT.fromDict(d["OsztalyCsoport"]),
 		d["HaziFeladatUid"],
 		d["IsHaziFeladatMegoldva"],
 		d["TanarNeve"],
-		TANTARGY(d["Tantargy"]),
-		TANULOJELENLET(d["TanuloJelenlet"]),
+		TANTARGY.fromDict(d["Tantargy"]),
+		TANULOJELENLET.fromDict(d["TanuloJelenlet"]),
 		d["Tema"],
 		d["TeremNeve"],
-		TIPUS(d["Tipus"]),
+		TIPUS.fromDict(d["Tipus"]),
 		d["Uid"],
 		d["VegIdopont"],
 		)
