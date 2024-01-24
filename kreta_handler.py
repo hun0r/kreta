@@ -416,7 +416,7 @@ class IdpApiV1:
         except Exception as e:
             print(e)
 if __name__=="__main__":
-    user=session.login("72655234689","20090329","035219001")
+    user=session.login()
     with open("getTimeTableWeeks","w") as f:
         print(user.getTimeTableWeeks(),file=f)
     with open("getGroups","w") as f:
