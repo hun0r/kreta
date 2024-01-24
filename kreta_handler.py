@@ -146,7 +146,7 @@ class session:
         except:
             self.refresh()
             return [ERTEKELES16.fromDict(e) for e in requests.get(f'{self.url}/sajat/Ertekelesek', headers=self.headers).json()]
-    def getGroups(self):
+    def getGroups(self)->list[CSOPORT10]:
         try:
             return [CSOPORT10.fromDict(i) for i in requests.get(f'{self.url}/sajat/OsztalyCsoportok', headers=self.headers).json()]
         except:
@@ -182,7 +182,7 @@ class session:
         except:
             self.refresh()
             return requests.get(f'{self.url}/Lep/Eloadasok', headers=self.headers).json()
-    def getLesson(self, orarendElemUid : str = None):
+    def getLesson(self, orarendElemUid : str = None)->ORAREND_ORA21:
         try:
             return ORAREND_ORA21.fromDict(requests.get(f'{self.url}/sajat/OrarendElem', params={
                 'orarendElemUid': orarendElemUid
@@ -192,7 +192,7 @@ class session:
             return ORAREND_ORA21.fromDict(requests.get(f'{self.url}/sajat/OrarendElem', params={
                 'orarendElemUid': orarendElemUid
             }, headers=self.headers).json())
-    def getLessons(self, datumTol : str = None, datumIg : str = None):
+    def getLessons(self, datumTol : str = None, datumIg : str = None)->list[ORAREND_ORA21]:
         try:
             return [ORAREND_ORA21.fromDict(i) for i in requests.get(f'{self.url}/sajat/OrarendElemek', params={
                 'datumTol': datumTol,
@@ -222,7 +222,7 @@ class session:
         except:
             self.refresh()
             return requests.get(f'{self.url}/sajat/FaliujsagElemek', headers=self.headers).json()
-    def getOmissions(self, datumTol : str = None, datumIg : str = None):
+    def getOmissions(self, datumTol : str = None, datumIg : str = None)->list[IGAZOLAS12]:
         try:
             return [IGAZOLAS12.fromDict(i) for i in requests.get(f'{self.url}/sajat/Mulasztasok', params={
                 'datumTol': datumTol,
@@ -235,25 +235,27 @@ class session:
                 'datumIg': datumIg
             }, headers=self.headers).json()]
     def getRegistrationState(self)->str:
-        """probably a str bool i didnt test it yet"""
+        """probably a bool as i didnt test it yet"""
         try:
             return requests.get(f'{self.url}/TargyiEszkoz/IsRegisztralt', headers=self.headers).text
         except:
             self.refresh()
             return requests.get(f'{self.url}/TargyiEszkoz/IsRegisztralt', headers=self.headers).text
     def getSchoolYearCalendar(self):
+        """probably list of ORAREND_ORA21 didnt test yet so its also not converted"""
         try:
             return requests.get(f'{self.url}/sajat/Intezmenyek/TanevRendjeElemek', headers=self.headers).json()
         except:
             self.refresh()
             return requests.get(f'{self.url}/sajat/Intezmenyek/TanevRendjeElemek', headers=self.headers).json()
-    def getStudent(self):
+    def getStudent(self)->DIAK16:
         try:
             return DIAK16.fromDict(requests.get(f'{self.url}/sajat/TanuloAdatlap', headers=self.headers).json())
         except:
             self.refresh()
             return DIAK16.fromDict(requests.get(f'{self.url}/sajat/TanuloAdatlap', headers=self.headers).json())
     def getSubjectAverage(self, oktatasiNevelesiFeladatUid : str):
+        """probably list of ERTEKELES16 as dict but i have no clue where can i get the Uid for this"""
         try:
             return requests.get(f'{self.url}/sajat/Ertekelesek/Atlagok/TantargyiAtlagok', params={
                 'oktatasiNevelesiFeladatUid': oktatasiNevelesiFeladatUid
@@ -263,7 +265,7 @@ class session:
             return requests.get(f'{self.url}/sajat/Ertekelesek/Atlagok/TantargyiAtlagok', params={
                 'oktatasiNevelesiFeladatUid': oktatasiNevelesiFeladatUid
             }, headers=self.headers).json()
-    def getTimeTableWeeks(self):
+    def getTimeTableWeeks(self)->list[ORAREND_ORA21]:
         try:
             return [ORAREND_ORA21.fromDict(i) for i in requests.get(f'{self.url}/sajat/Intezmenyek/Hetirendek/Orarendi', headers=self.headers).json()]
         except:
