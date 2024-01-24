@@ -5,7 +5,7 @@ import requests
 
 from datetime import datetime, timedelta
 
-from kreta_datastructs import *
+from dc import *
 
 # set default headers
 headers = {"User-Agent": "hu.ekreta.student/3.0.4/7.1.2/25"}
@@ -52,25 +52,25 @@ class session:
         self.headers["Authorization"]=f"Bearer {self.access_token}"
     def close(self)->None:
         self.idp_api.revokeRefreshToken(self.refresh_token)
-    def deleteBankAccountNumber(self):
+    def deleteBankAccountNumber(self)->requests.Response:
         try:
             return requests.delete(f'{self.url}/sajat/Bankszamla', headers=self.headers).text
         except:
             self.refresh()
             return requests.delete(f'{self.url}/sajat/Bankszamla', headers=self.headers).text
-    def deleteReservation(self, uid : str):
+    def deleteReservation(self, uid : str)->requests.Response:
         try:
             return requests.delete(f'{self.url}/sajat/Fogadoorak/Idopontok/Jelentkezesek/{uid}', headers=self.headers).text
         except:
             self.refresh()
             return requests.delete(f'{self.url}/sajat/Fogadoorak/Idopontok/Jelentkezesek/{uid}', headers=self.headers).text
-    def downloadAttachment(self, uid : str):
+    def downloadAttachment(self, uid : str)->str:
         try:
             return requests.get(f'{self.url}/sajat/Csatolmany/{uid}', headers=self.headers).text
         except:
             self.refresh()
             return requests.get(f'{self.url}/sajat/Csatolmany/{uid}', headers=self.headers).text
-    def getAnnouncedTests(self, Uids : str = None):
+    def getAnnouncedTests(self, Uids : str = None)->list[DOLGOZAT9]:
         try:
             return [DOLGOZAT9.fromDict(doga) for doga in 
                 requests.get(f'{self.url}/sajat/BejelentettSzamonkeresek', params={
@@ -82,7 +82,7 @@ class session:
             return [DOLGOZAT9.fromDict(doga) for doga in requests.get(f'{self.url}/sajat/BejelentettSzamonkeresek', params={
                 'Uids': Uids
             }, headers=self.headers).json()]
-    def getAnnouncedTests(self, datumTol : str = None, datumIg : str = None):
+    def getAnnouncedTests(self, datumTol : str = None, datumIg : str = None)->list[DOLGOZAT9]:
         try:
             return [DOLGOZAT9.fromDict(doga) for doga in requests.get(f'{self.url}/sajat/BejelentettSzamonkeresek', params={
                 'datumTol': datumTol,
@@ -122,7 +122,7 @@ class session:
         except:
             self.refresh()
             return requests.get(f'{self.url}/sajat/Fogadoorak/{uid}', headers=self.headers).json()
-    def getConsultingHours(self, datumTol : str = None, datumIg : str = None):
+    def getConsultingHours(self, datumTol : str = None, datumIg : str = None)->list:
         try:
             return requests.get(f'{self.url}/sajat/Fogadoorak', params={
                 'datumTol': datumTol,
@@ -140,18 +140,18 @@ class session:
         except:
             self.refresh()
             return bool(requests.get(f'{self.url}/TargyiEszkoz/IsEszkozKiosztva', headers=self.headers).text)
-    def getEvaluations(self):
+    def getEvaluations(self)->list[ERTEKELES16]:
         try:
-            return requests.get(f'{self.url}/sajat/Ertekelesek', headers=self.headers).json()
+            return [ERTEKELES16.fromDict(e) for e in requests.get(f'{self.url}/sajat/Ertekelesek', headers=self.headers).json()]
         except:
             self.refresh()
-            return requests.get(f'{self.url}/sajat/Ertekelesek', headers=self.headers).json()
+            return [ERTEKELES16.fromDict(e) for e in requests.get(f'{self.url}/sajat/Ertekelesek', headers=self.headers).json()]
     def getGroups(self):
         try:
-            return requests.get(f'{self.url}/sajat/OsztalyCsoportok', headers=self.headers).json()
+            return [CSOPORT10.fromDict(i) for i in requests.get(f'{self.url}/sajat/OsztalyCsoportok', headers=self.headers).json()]
         except:
             self.refresh()
-            return requests.get(f'{self.url}/sajat/OsztalyCsoportok', headers=self.headers).json()
+            return [CSOPORT10.fromDict(i) for i in requests.get(f'{self.url}/sajat/OsztalyCsoportok', headers=self.headers).json()]
     def getGuardian4T(self):
         try:
             return requests.get(f'{self.url}/sajat/GondviseloAdatlap', headers=self.headers).json()
@@ -184,26 +184,26 @@ class session:
             return requests.get(f'{self.url}/Lep/Eloadasok', headers=self.headers).json()
     def getLesson(self, orarendElemUid : str = None):
         try:
-            return requests.get(f'{self.url}/sajat/OrarendElem', params={
+            return ORAREND_ORA21.fromDict(requests.get(f'{self.url}/sajat/OrarendElem', params={
                 'orarendElemUid': orarendElemUid
-            }, headers=self.headers).json()
+            }, headers=self.headers).json())
         except:
             self.refresh()
-            return requests.get(f'{self.url}/sajat/OrarendElem', params={
+            return ORAREND_ORA21.fromDict(requests.get(f'{self.url}/sajat/OrarendElem', params={
                 'orarendElemUid': orarendElemUid
-            }, headers=self.headers).json()
+            }, headers=self.headers).json())
     def getLessons(self, datumTol : str = None, datumIg : str = None):
         try:
-            return requests.get(f'{self.url}/sajat/OrarendElemek', params={
+            return [ORAREND_ORA21.fromDict(i) for i in requests.get(f'{self.url}/sajat/OrarendElemek', params={
                 'datumTol': datumTol,
                 'datumIg': datumIg
-            }, headers=self.headers).json()
+            }, headers=self.headers).json()]
         except:
             self.refresh()
-            return requests.get(f'{self.url}/sajat/OrarendElemek', params={
+            return [ORAREND_ORA21.fromDict(i) for i in requests.get(f'{self.url}/sajat/OrarendElemek', params={
                 'datumTol': datumTol,
                 'datumIg': datumIg
-            }, headers=self.headers).json()
+            }, headers=self.headers).json()]
     def getNotes(self, datumTol : str = None, datumIg : str = None):
         try:
             return requests.get(f'{self.url}/sajat/Feljegyzesek', params={
@@ -224,17 +224,18 @@ class session:
             return requests.get(f'{self.url}/sajat/FaliujsagElemek', headers=self.headers).json()
     def getOmissions(self, datumTol : str = None, datumIg : str = None):
         try:
-            return requests.get(f'{self.url}/sajat/Mulasztasok', params={
+            return [IGAZOLAS12.fromDict(i) for i in requests.get(f'{self.url}/sajat/Mulasztasok', params={
                 'datumTol': datumTol,
                 'datumIg': datumIg
-            }, headers=self.headers).json()
+            }, headers=self.headers).json()]
         except:
             self.refresh()
-            return requests.get(f'{self.url}/sajat/Mulasztasok', params={
+            return [IGAZOLAS12.fromDict(i) for i in requests.get(f'{self.url}/sajat/Mulasztasok', params={
                 'datumTol': datumTol,
                 'datumIg': datumIg
-            }, headers=self.headers).json()
-    def getRegistrationState(self):
+            }, headers=self.headers).json()]
+    def getRegistrationState(self)->str:
+        """probably a str bool i didnt test it yet"""
         try:
             return requests.get(f'{self.url}/TargyiEszkoz/IsRegisztralt', headers=self.headers).text
         except:
@@ -248,10 +249,10 @@ class session:
             return requests.get(f'{self.url}/sajat/Intezmenyek/TanevRendjeElemek', headers=self.headers).json()
     def getStudent(self):
         try:
-            return requests.get(f'{self.url}/sajat/TanuloAdatlap', headers=self.headers).json()
+            return DIAK16.fromDict(requests.get(f'{self.url}/sajat/TanuloAdatlap', headers=self.headers).json())
         except:
             self.refresh()
-            return requests.get(f'{self.url}/sajat/TanuloAdatlap', headers=self.headers).json()
+            return DIAK16.fromDict(requests.get(f'{self.url}/sajat/TanuloAdatlap', headers=self.headers).json())
     def getSubjectAverage(self, oktatasiNevelesiFeladatUid : str):
         try:
             return requests.get(f'{self.url}/sajat/Ertekelesek/Atlagok/TantargyiAtlagok', params={
@@ -264,10 +265,10 @@ class session:
             }, headers=self.headers).json()
     def getTimeTableWeeks(self):
         try:
-            return requests.get(f'{self.url}/sajat/Intezmenyek/Hetirendek/Orarendi', headers=self.headers).json()
+            return [ORAREND_ORA21.fromDict(i) for i in requests.get(f'{self.url}/sajat/Intezmenyek/Hetirendek/Orarendi', headers=self.headers).json()]
         except:
             self.refresh()
-            return requests.get(f'{self.url}/sajat/Intezmenyek/Hetirendek/Orarendi', headers=self.headers).json()
+            return [ORAREND_ORA21.fromDict(i) for i in requests.get(f'{self.url}/sajat/Intezmenyek/Hetirendek/Orarendi', headers=self.headers).json()]
     def postBankAccountNumber(self, BankszamlaSzam : str, BankszamlaTulajdonosNeve : str, BankszamlaTulajdonosTipusId : str, SzamlavezetoBank : str):
         try:
             return requests.post(f'{self.url}/sajat/Bankszamla', data=f'BankAccountNumberPostDto(bankAccountNumber={BankszamlaSzam}, bankAccountOwnerType={BankszamlaTulajdonosTipusId}, bankAccountOwnerName={BankszamlaTulajdonosNeve}, bankName={SzamlavezetoBank})', headers=self.headers).text
@@ -419,12 +420,12 @@ if __name__=="__main__":
     user=session.login()
     with open("getTimeTableWeeks","w") as f:
         print(user.getTimeTableWeeks(),file=f)
-    with open("getGroups","w") as f:
-        print(user.getGroups(),file=f)
+#done!    with open("getGroups","w") as f:
+#        print(user.getGroups(),file=f)
     with open("getHomeworks","w") as f:
         print(user.getHomeworks(span(-60,1)),file=f)
-    with open("getGuardian4T","w") as f:
-        print(user.getGuardian4T(),file=f)
+#    with open("getGuardian4T","w") as f:
+#        print(user.getGuardian4T(),file=f)
     with open("getLessons","w") as f:
         print(user.getLessons(span(-1,6)),file=f)
     with open("getNotes","w") as f:
