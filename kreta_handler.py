@@ -5,7 +5,7 @@ import requests
 
 from datetime import datetime, timedelta
 
-from dc import *
+from kreta_datastructs import *
 
 # set default headers
 headers = {"User-Agent": "hu.ekreta.student/3.0.4/7.1.2/25"}
