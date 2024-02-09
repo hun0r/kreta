@@ -1,6 +1,6 @@
-### e-kréta V3 api handler
+# e-kréta V3 api handler
 ## use
-# session
+### session
 fast description:
   -session is the heart of the api handler
   -for simple programs its enough
@@ -9,7 +9,7 @@ use:
   -has to and from dict converters: fromDict() and data()
   -use the api links
   -auto logs out when deleted
-# Diak
+### Diak
 fast desription:
   -basically wraps the session in a second layer so the object dosent dissapier when logged out
 use:
@@ -21,7 +21,7 @@ use:
   -access session commands throught .session (tell me if i should make it subclass of session somehow)
   -has to and from dict converters: fromDict() and data()
   -read on the rest of the funcs in doc str or code
-# SchoolClass
+### SchoolClass
 fast description:
   -a second wrap around Diak
   -used to store lot of Diaks in groups by Class tho no check is yet implemented
