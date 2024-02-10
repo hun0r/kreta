@@ -45,9 +45,9 @@ class SchoolClass:
         """add class mate"""
         self.students[name]=student
         return student
-    def add_students(self,students:list["Diak"])->list["Diak"]:
+    def add_students(self,students:dict[str,"Diak"])->dict[str,"Diak"]:
         """add class mates"""
-        for student in students: self.add_student(student)
+        self.students.update(students)
         return students
     def log_new_student_in(self,userName:str|int,pwd:str|int)->"Diak":
         """log new class inmate in and add as classmate"""
