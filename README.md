@@ -70,6 +70,7 @@ fromDict and data:
   - represents a class
   - helps organise users if there are a lot of them
   - has problems not yet recomended
+  - access students by name from .students
 
 make instance:
 ```python
@@ -89,9 +90,23 @@ MyClass.log_new_student_in(name/id,username,pwd)
   - name is str
   - add_student() adds one student
   - add_students() updates the students dict
-  - 
+  - log_new_student_in logs new student in adds to class
+  - all return the student/students that it logged in
 
+fromDict and data:
+  - same use as in all
 
+known errors:
+  - no real check if a student belongs there
+  - have to re run the init to have up to date data
+
+## known errors and what may be coming
+  - no dataclass for many requests (open issue if u find one and can show a sample of the response)
+  - no data funcs for the dataclasses
+  - SchoolClass has problems
+  - even bigger grouping (School)
+  - SchoolClass -> dict subclass
+  - Diak -> session subclass
 
 
 
