@@ -31,5 +31,6 @@ use:
   -access students by .students[name] (tell me if i should make Schoolclass a dict subclass)  
 ## main todo list
   -dataclass to all responses  
+    please open an issue with a kreta response if u find one that stays as dict     
   -data() to all dataclasses  
   -finding out how to indent in ReadMe
