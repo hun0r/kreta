@@ -108,7 +108,7 @@ known errors:
   - even bigger grouping (School)
   - SchoolClass -> dict subclass
   - Diak -> session subclass
-
+  - the global api
 
 
 
