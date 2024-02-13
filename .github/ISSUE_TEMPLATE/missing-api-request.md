@@ -7,6 +7,5 @@ assignees: hun0r
 
 ---
 
-Api link:
-(Optional):  
-func name suggestion:
+Api link:  
+func name suggestion (Optional):
