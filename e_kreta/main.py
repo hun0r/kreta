@@ -1,5 +1,5 @@
-import e_kreta3_1.kreta_base3 as k_base
-import e_kreta3_1.dc as dc
+import kreta_base as k_base
+import dc
 import hashlib
 
 class SchoolClass:
