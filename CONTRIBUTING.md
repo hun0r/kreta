@@ -1,2 +1,1 @@
-Make a new branch edit add remove there and make a pull request is how u contribute.
-You can't and shouldn't edit the main branch directly.
+Creating issues can help a lot because i hate to test the code. 
