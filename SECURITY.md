@@ -1,2 +1,2 @@
 # Security Policy
-# no version has security hand implemented i expect the kreta api to handle that i you really need it do it your self
+I don't see where i should implement that since i don't store anything nor do i accomplish connection that i could make more secure. All i could done is store the least amount of usable data. (I only store the klik id for the links and the access/refresh token)
