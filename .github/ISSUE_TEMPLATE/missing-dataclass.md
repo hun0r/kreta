@@ -8,5 +8,5 @@ assignees: hun0r
 
 ---
 
-Kreta response example dict:
+Kreta response example dict:  
 session func name:
