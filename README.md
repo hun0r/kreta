@@ -10,7 +10,7 @@
 
 login/create instance:  
 ```python
-from e_kreta3_1 import kreat_base3 as k_base
+from e_kreta import kreat_base as k_base
 MySession=k_base.session.login(userName,pwd,klik)
 ```
   - all args are auto formatted:
@@ -41,10 +41,10 @@ homeworks=Mysession.getHomeworks(tol,ig)
 
 login/make instance:
 ```python
-from e_kreta3_1 import e_kreta, kreta_base
-User=e_kreta.Diak(kreta_base.session(username,pwd,klik))
+from e_kreta import main, kreta_base
+User=main.Diak(kreta_base.session(username,pwd,klik))
 #or
-User=e_kreta.Diak()
+User=main.Diak()
 User.login(username,pwd,klik)
 ```
   - define from session or start empty
@@ -75,8 +75,8 @@ fromDict and data:
 
 make instance:
 ```python
-from e_kreta3_1 import e_kreta
-MyClass=e_kreta.SchoolClass(students,klik=klik)
+from e_kreta import main
+MyClass=main.SchoolClass(students,klik=klik)
 ```
   - defined from students and klik
     - students is a dict[name/id:Diak]
