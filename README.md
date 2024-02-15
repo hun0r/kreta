@@ -1,4 +1,4 @@
-# e-kréta V3 api handler  
+# python e-kréta V3 api handler module  
   - install: `pip install e_kreta_hun0r`  
     or download the e_kreta folder
   - handle the kreta api without haveing to find all the links  
