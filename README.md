@@ -1,5 +1,6 @@
 # e-kréta V3 api handler  
   - install: `pip install e_kreta_hun0r`
+    or download the e_kreta folder
   - handle the kreta api without haveing to find all the links  
   - structure the responses so u dont need an example to tell the keys  
   - group users  
