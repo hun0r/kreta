@@ -5,7 +5,7 @@ import requests
 
 from datetime import datetime, timedelta
 
-import dc
+from . import dc
 
 # set default headers
 headers = {"User-Agent": "hu.ekreta.student/3.0.4/7.1.2/25"}
