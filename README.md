@@ -99,25 +99,13 @@ fromDict and data:
   - same use as in all
 
 known errors:
-  - no real check if a student belongs there
-  - have to re run the init to have up to date data
+  - only checks if school maches
 
 ## known errors and what may be coming
   - no dataclass for many requests (open issue if u find one and can show a sample of the response)
   - no data funcs for the dataclasses
-  - SchoolClass has problems
+  - SchoolClass has a problem
   - even bigger grouping (School)
   - SchoolClass -> dict subclass
   - Diak -> session subclass
   - the global api
-
-
-
-
-
-
-
-
-
-
-

@@ -1,0 +1,8 @@
+from .. import e_kreta
+import os
+userName,pwd,klik=os.environ['KRETA_TEST_LOGIN'].split()
+#extract
+klik=klik[4:]
+pwd.replace('-','')
+
+e_kreta.session.login("")

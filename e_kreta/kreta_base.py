@@ -12,6 +12,39 @@ headers = {"User-Agent": "hu.ekreta.student/3.0.4/7.1.2/25"}
 # url format
 URL="https://<klik>.e-kreta.hu/ellenorzo/V3"
 
+def User_name_formatter(user_name:int|str): 
+    """format user name from int/str
+
+    Args:
+        user_name (int|str): userName to format
+
+    Returns:
+        str: formatted user_name
+    """
+    user_name=''.join(filter(str.isdigit, str(user_name)))
+    return user_name
+def Pwd_formatter(pwd:int|str):
+    """format password from any str/int containing its digits
+
+    Args:
+        pwd (srt|int): password
+    
+    Returns:
+        str: formatted password
+    """
+    pwd=''.join(filter(str.isdigit, str(pwd)))
+    pwd=str(pwd)[:4]+"-"+str(pwd)[4:6]+"-"+str(pwd)[6:]
+    return pwd
+def klik_formatter(klik:int|str):
+    """format klik from str/int containing its digits
+
+    Args:
+        klik (int | str): klik to format
+
+    Returns:
+        str: formatted klik
+    """
+    return "klik"+''.join(filter(str.isdigit, str(klik)))
 
 class session:
     """base of the api represents a KRETA login"""
@@ -28,13 +61,25 @@ class session:
             "User-Agent": "hu.ekreta.tanulo/1.0.5/Android/0/0",
         }
     def __del__(self)->None:
-        self.close()
+        self.logout()
     @classmethod
     def login(cls,userName: str|int,pwd:str|int,klik:str|int)->"session":
-        """Login user"""
-        if isinstance(userName,int): userName=str(userName)
-        if isinstance(pwd,int) or len(pwd)==8: pwd=str(pwd)[:4]+"-"+str(pwd)[4:6]+"-"+str(pwd)[6:]
-        if isinstance(klik,int) or not klik.startswith("klik"): klik="klik"+str(klik)
+        """Create Kreta login session
+
+        Args:
+            userName (str | int): userName no format required
+            pwd (str | int): password no format required
+            klik (str | int): klik no format required
+
+        Raises:
+            ValueError: invalid userName/pwd
+
+        Returns:
+            session: Kreta login session
+        """
+        userName=User_name_formatter(userName)
+        pwd=Pwd_formatter(pwd)
+        klik=klik_formatter(klik)
         idp_api=IdpApiV1(KRETAEncoder())
         nonce=idp_api.getNonce()
         try: r=idp_api.login(userName,pwd,klik,nonce)
@@ -44,11 +89,22 @@ class session:
     
     @classmethod
     def fromDict(cls,d:dict)->"session":
-        """used to load from a dict/json"""
+        """load from a dict (aka json)
+
+        Args:
+            d (dict): dict to load from got from .data()
+
+        Returns:
+            session: loded Kreta login session
+        """
         cls(d["access_token"],d["refresh_token"],d["nonce"],IdpApiV1(KRETAEncoder()),d["url"],d["MyID"])
     
     def data(self)->dict:
-        """store to dict (so u can dump to json)"""
+        """save to a dict to dump to json and load back in with .fromDict()
+
+        Returns:
+            dict: dict to load from
+        """
         return {"access_token":self.access_token,
            "refresh_token":self.refresh_token,
            "nonce":self.nonce,
@@ -57,14 +113,16 @@ class session:
            }
     
     def refresh(self)->None:
-        """refresh access token should run automatically"""
+        """refresh access token, should run automatically"""
         klik=self.url[8:-11]
         r=self.idp_api.extendToken(self.refresh_token,klik)
         self.access_token,self.refresh_token=r["access_token"],r["refresh_token"]
         self.headers["Authorization"]=f"Bearer {self.access_token}"
     
-    def close(self)->None:
-        """log out of KRETA"""
+    def logout(self)->None:
+        """log out of KRETA.
+
+        runs automatically when the instance is deleted."""
         self.idp_api.revokeRefreshToken(self.refresh_token)
     
     # 31 painfull api requests
@@ -323,10 +381,22 @@ class session:
             return requests.post(f'{self.url}/Lep/Eloadasok/GondviseloEngedelyezes', data=f'LepEventGuardianPermissionPostDto(eventId={EloadasId}, isPermitted={str(Dontes)})', headers=self.headers).text
 
 def span(tól,ig)->(str,str):
-    """used to take e.g. Homework from a span not id"""
+    """get a span of 2 dates for requests needing 2 dates
+
+    Args:
+        t (int): from t + tól
+        str (int): to t + ig
+
+    Returns:
+        (str,str): 2 dates
+
+    Raises:
+        ValueError: no span of Negative length exists
+    """
+    if tól>ig: raise ValueError("no span of Negative length exists")
     today=datetime.now()
-    tólDate=today-timedelta(days=tól)
-    igDate=today-timedelta(days=ig)
+    tólDate=today+timedelta(days=tól)
+    igDate=today+timedelta(days=ig)
     return tólDate.strftime("%Y-%m-%d"), igDate.strftime("%Y-%m-%d")
 
 # not mine
